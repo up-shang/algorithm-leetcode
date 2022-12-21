@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vue渲染器</title>
+</head>
+
+<body>
+  <div id="app"></div>
+
+  <script src="https://unpkg.com/@vue/reactivity@3.0.5/dist/reactivity.global.js"></script>
+  <script>
+    console.log(window, '=========')
+    const { effect, ref, reactive, toRef } = window.VueReactivity
+
+    function createRenderer(options) {
+      // options不同平台接收参数不一致
+      const { createElement, setElementContent, insert } = options
+      // 转为真实dom
+      function mountElement(vnode, container) {
+        const el = createElement(vnode.type)
+        if (typeof vnode.children !== 'object') {
+          setElementContent(el, vnode.children)
+        }
+        insert(el, container)
+      }
+      function patch(oldVnode, newVnode, container) {
+        if (!oldVnode) {
+          // 挂载
+          mountElement(newVnode, container)
+        } else {
+          // 打补丁
+        }
+      }
+      // 渲染
+      function render(vnode, container) {
+        if (vnode) {
+          // 挂载or打补丁
+          patch(container._vnode, vnode, container)
+        } else {
+          // 清空
+          if (container._vnode) {
+            container.innerHTML = ''
+          }
+        }
+        container._vnode = vnode
+      }
+      return {
+        render
+      }
+    }
+    const renderer = createRenderer({
+      createElement(tag) {
+        return document.createElement(tag)
+      },
+      setElementContent(el, text) {
+        return el.textContent = text
+      },
+      insert(el, parent, anchor = null) {
+        parent.insertBefore(el, anchor)
+      }
+    })
+    const count = ref(1)
+    const vnode = {
+      type: 'span',
+      children: count.value
+    }
+    // (vnode.children)
+    console.log(vnode)
+    // 查询下toRefs的用法！！！！
+    effect(() => {
+      renderer.render(vnode, document.getElementById('app'))
+    })
+    vnode.children++
+    // count.value++
+    console.log(count.value)
+
+  </script>
+</body>
