@@ -16,7 +16,7 @@ var coinChange = function (coins, amount) {
   }
   let dp = Array(amount + 1).fill(Infinity)
   dp[0] = 0
-  // 枚举所有硬币数组，min函数内对比上次枚举内的dp的值，取最小值+1（当前枚举的一枚硬币）
+  // 枚举所有硬币数组，min函数内对比上次枚举内的dp的值"，取最小值+1（当前枚举的一枚硬币）
   for (let i = 0; i < coins.length; i++) {
     for (let j = coins[i]; j <= amount; j++) {
       dp[j] = Math.min(dp[j - coins[i]] + 1, dp[j])
