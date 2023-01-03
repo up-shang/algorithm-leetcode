@@ -21,6 +21,7 @@
 var isSameTree = function (p, q) {
   // 1、编写边界条件
   // 2、递归遍历所有数节点
+  // 3、遍历完还没false，则一定是p q 均为null return true
   if (!p && !q) return true
   if (!p || !q) return false
   if (p.val !== q.val) return false
