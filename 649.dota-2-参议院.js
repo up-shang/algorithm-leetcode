@@ -23,6 +23,7 @@ var predictPartyVictory = function (senate) {
   }
   while (Radiant.length > 0 && Dire.length > 0) {
     // 谁小谁可以优先攻击，则push一下小的
+    // 每次的小树干掉一个参议员后，需要参考加上senate.length为基准push到尾部才不会导致后续计算失误
     if (Radiant[0] < Dire[0]) {
       Radiant.push(Radiant[0] + senate.length)
     } else {
