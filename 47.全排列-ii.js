@@ -13,6 +13,7 @@ var permuteUnique = function (nums) {
   nums.sort((a, b) => b - a)
   let ret = []
   let path = []
+  let used = new Array(nums.length).fill(false)
   backtrack([])
   return ret
   function backtrack(used) {
