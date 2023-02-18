@@ -19,8 +19,11 @@ var numDistinct = function (s, t) {
   for (let i = 1; i <= s.length; i++) {
     for (let j = 1; j <= t.length; j++) {
       if (s[i - 1] === t[j - 1]) {
+        // 当前[i-1][j-1]+上一次最大值[i-1][j]
         dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j]
       } else {
+        // 不满足，则回退到上一个统计的最大值
+        // t不需要移除元素，故j不需要-
         dp[i][j] = dp[i - 1][j]
       }
     }
