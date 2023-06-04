@@ -10,7 +10,7 @@
  * @param {string} text2
  * @return {number}
  */
-var longestCommonSubsequence = function (text1, text2) {
+var longestCommonSubsequence = function(text1, text2) {
   let m = text1.length, n = text2.length
   let dp = new Array(m + 1).fill(0).map(i => new Array(n + 1).fill(0))
   for (let i = 1; i <= m; i++) {

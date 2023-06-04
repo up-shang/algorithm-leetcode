@@ -9,11 +9,12 @@
  * @param {number[]} nums
  * @return {number}
 */
-var maxSubArray = function (nums) {
+var maxSubArray = function(nums) {
   let dp = new Array(nums.length).fill(0)
   dp[0] = nums[0]
   let ret = nums[0]
   for (let i = 1; i < nums.length; i++) {
+    // 注意连续，所以只有两种情况，上一个dp+当前保持连续；或者直接使用当前舍弃上一个dp
     // 两种情况可以到达dp[i],前一个+当前；或者直接舍弃原来的，使用当前的
     dp[i] = Math.max(dp[i - 1] + nums[i], nums[i])
     // 每次记得比对更新结果集
@@ -21,7 +22,7 @@ var maxSubArray = function (nums) {
   }
   return ret
 };
-var maxSubArray1 = function (nums) {
+var maxSubArray1 = function(nums) {
   let ret = -Infinity
   let count = 0
   for (let i = 0; i < nums.length; i++) {
