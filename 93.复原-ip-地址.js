@@ -9,38 +9,32 @@
  * @param {string} s
  * @return {string[]}
  */
-var restoreIpAddresses = function (s) {
+var restoreIpAddresses = function(s) {
   let ret = []
   let path = []
   // 从0开始查找
-  backtrack(0)
+  dfs(0)
   return ret
 
-  function backtrack(i) {
-    // 不能改变字符串顺序，故超过4，直接跳出
-    // 跳出后，从索引0继续切割，此时会多切割一点字符，从0=》当前for循环的j
-    if (path.length > 4) {
-      return
-    }
-    // path为4个时，且i遍历完了所有s字符串时，满足条件push到结果集
-    if (path.length === 4 && i === s.length) {
+  function dfs(index) {
+    // path内推入第五个索引时，不再满足题意
+    if (path.length > 4) return
+    // path内有4个且字符使用完后推入结果集
+    if (path.length === 4 && index === s.length) {
       ret.push(path.join('.'))
       return
     }
-    for (let j = i; j < s.length; j++) {
-      const str = s.substring(i, j + 1)
-      // 判断条件，不能大于255，不能0开头，不满足直接终止for循环
-      if (Number(str) > 255) {
-        break
-      }
-      if (str.length > 1 && str[0] === '0') {
-        break
-      }
-      // 截取当前串
-      path.push(s.substring(i, j + 1))
-      // 从当前串的下一个索引继续回溯查找
-      backtrack(j + 1)
-      // 满足终止条件后，弹出
+    // 从0传入截取位置后，每次依据此往后截取
+    for (let j = index; j < s.length; j++) {
+      // 根据题意写好回溯内的标界剪枝逻辑
+      const str = s.slice(index, j + 1)
+      // 不能超过255
+      if (Number(str) > 255) return
+      // 超过一位时，不能0开头
+      if (str.length > 1 && str[0] === '0') return
+      path.push(str)
+      // 从上个截取后的索引，继续截取下个串
+      dfs(j + 1)
       path.pop()
     }
   }
