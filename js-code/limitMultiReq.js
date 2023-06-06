@@ -1,10 +1,10 @@
 /**
  * 限制最大并发请求数
- * @param {*} urls 请求资源池
- * @param {*} max 允许请求的最大并发数
+ * @param {Array} urls 请求资源池
+ * @param {Number} max 允许请求的最大并发数
  * @returns 
  */
-function limitMultRequest(urls, max) {
+function limitMultiRequest(urls, max) {
   const len = urls.length
   let count = 0
   const result = new Array(len).fill(false)
