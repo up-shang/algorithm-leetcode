@@ -1,27 +1,36 @@
-class EventBus {
+/**
+ * 手写实现发布订阅
+ */
+class Emitter {
   constructor() {
+    // 事件回调处理器
     this.handler = {}
   }
-  // 发布
-  emit(eventName, ...args) {
-    if (this.handler[eventName]) {
-      this.handler[eventName].forEach(cb => {
-        cb(...args)
-      })
-    }
-  }
-  // 订阅
-  on(eventName, cb) {
+  // 订阅，注意区分是否为once
+  on(eventName, cb, isOnce) {
     if (!this.handler[eventName]) {
       this.handler[eventName] = []
     }
-    this.handler[eventName].push(cb)
+    this.handler[eventName].push({ cb, isOnce })
+  }
+  // 执行一次后移除，传入isOnce true标识
+  once(eventName, cb) {
+    this.on(eventName, cb, true)
   }
   // 解除订阅
   off(eventName, cb) {
     if (this.handler[eventName]) {
-      const index = this.handler[eventName].indexOf(cb)
-      if (index !== -1) this.handler[eventName].splice(index, 1)
+      // 移除匹配到的回调
+      this.handler[eventName].filter(item => item.cb !== cb)
+    }
+  }
+  // 发布
+  emit(eventName, ...args) {
+    if (this.handler[eventName]) {
+      this.handler[eventName].filter(item => {
+        item.cb(...args) // 执行订阅该事件的回调
+        return !item.isOnce // 执行一次后，清除once类型的事件回调
+      })
     }
   }
 }

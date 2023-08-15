@@ -1,6 +1,7 @@
 function fakeNew() {
   // 创建新对象
   var obj = Object.create(null);
+  // shift返回第一个传入数组的参数此处代表this指向的构造函数
   var Constructor = [].shift.call(arguments);
   // 将对象的 __proto__ 赋值为构造函数的 prototype 属性
   obj.__proto__ = Constructor.prototype;
