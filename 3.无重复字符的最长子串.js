@@ -19,7 +19,7 @@ var lengthOfLongestSubstring = function(s) {
   for (let i = 0; i < s.length; i++) {
     // map.get(s[i]) >= left需要判断下，某则会出现left比预期靠左的情况（相同的a切换到相同的b时）
     if (map.has(s[i]) && map.get(s[i]) >= left) {
-      // 前进一位，丢弃掉重复的这一个数字
+      // 找到与当前正在遍历的s[i]相同的i索引，丢弃掉滑动前进一位
       left = map.get(s[i]) + 1
     }
     // 每次判断谁最大,left一直在变大需要max判断哪个是最大的ret
