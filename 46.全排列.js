@@ -10,28 +10,27 @@
  */
 
 // @lc code=start
-function backtrack(list, temp, nums) {
-  // 全排列，故终止条件为length相同
-  if(temp.length === nums.length) {
-    return list.push([...temp])
-  }
-  for(let i=0; i<nums.length; i++) {
-    // 全排列的所有数组内数字也不会重复
-    if(temp.includes(nums[i])){
-      continue
-    }
-    temp.push(nums[i])
-    backtrack(list, temp, nums)
-    temp.pop()
-  }
-}
 /**
  * @param {number[]} nums
  * @return {number[][]}
  */
 var permute = function(nums) {
   let list = []
-  backtrack(list, [], nums)
+  let path = []
+  backtrack(list, path, nums)
+  function backtrack(list, path, nums) {
+    if (path.length === nums.length) {
+      return list.push([...path])
+    }
+    for (let i = 0; i < nums.length; i++) {
+      if (path.includes(nums[i])) {
+        continue
+      }
+      path.push(nums[i])
+      backtrack(list, path, nums)
+      path.pop()
+    }
+  }
   return list
 };
 // @lc code=end
