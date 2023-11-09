@@ -14,7 +14,6 @@ var permuteUnique = function(nums) {
   nums.sort((a, b) => a - b)
   const ret = []
   const path = []
-  const used = new Array(nums.length).fill(false)
   function backtrack(idx, used) {
     if (idx === nums.length) {
       return ret.push([...path])
