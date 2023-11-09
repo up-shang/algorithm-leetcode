@@ -9,31 +9,30 @@
  * @param {number[]} nums
  * @return {number[][]}
  */
-var permuteUnique = function (nums) {
-  nums.sort((a, b) => b - a)
+var permuteUnique = function(nums) {
+  nums.sort((a, b) => a - b)
   let ret = []
   let path = []
-  let used = new Array(nums.length).fill(false)
-  backtrack([])
-  return ret
-  function backtrack(used) {
-    if (path.length === nums.length) {
-      ret.push([...path])
+  let idx = 0
+  function backtrack(idx, used) {
+    if (idx === nums.length) {
+      return ret.push([...path])
     }
     for (let i = 0; i < nums.length; i++) {
-      const num = nums[i]
-      if (nums[i] === nums[i - 1] && !used[i - 1]) {
+      if (i > 0 && nums[i - 1] === nums[i] && !used[i - 1]) {
         continue
       }
       if (!used[i]) {
         used[i] = true
-        path.push(num)
-        backtrack(used)
+        path.push(nums[i])
+        backtrack(idx + 1, used)
         path.pop()
         used[i] = false
       }
     }
   }
+  backtrack(0, [])
+  return ret
 };
 // @lc code=end
 
