@@ -9,6 +9,7 @@
  * @param {number[]} nums
  * @return {number[][]}
  */
+// 注意题意为有重复数字的nums，所以需要注意去重
 var permuteUnique = function(nums) {
   nums.sort((a, b) => a - b)
   let ret = []
@@ -19,6 +20,7 @@ var permuteUnique = function(nums) {
       return ret.push([...path])
     }
     for (let i = 0; i < nums.length; i++) {
+      // 重点是这里！！！，每个数层如果当前数字与上一个数字相等，且前一个数字已经用过释放了，则直接跳过当前数字
       if (i > 0 && nums[i - 1] === nums[i] && !used[i - 1]) {
         continue
       }
