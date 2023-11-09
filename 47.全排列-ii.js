@@ -12,9 +12,9 @@
 // 注意题意为有重复数字的nums，所以需要注意去重
 var permuteUnique = function(nums) {
   nums.sort((a, b) => a - b)
-  let ret = []
-  let path = []
-  let idx = 0
+  const ret = []
+  const path = []
+  const used = new Array(nums.length).fill(false)
   function backtrack(idx, used) {
     if (idx === nums.length) {
       return ret.push([...path])
