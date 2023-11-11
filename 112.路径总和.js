@@ -18,10 +18,11 @@
  * @param {number} targetSum
  * @return {boolean}
  */
-var hasPathSum = function (root, targetSum) {
+var hasPathSum = function(root, targetSum) {
   if (!root) return false
   // 递归边界,遍历到终止时
   if (!root.left && !root.right) {
+    // 最终的root.val与offset对比，如果相等则存在
     return root.val === targetSum
   }
   // 每遍历一层，更新一次offset差值
