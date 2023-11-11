@@ -17,17 +17,18 @@
 var permute = function(nums) {
   let list = []
   let path = []
-  backtrack(list, path, nums)
-  function backtrack(list, path, nums) {
-    if (path.length === nums.length) {
+  backtrack(0)
+  function backtrack(idx) {
+    if (idx === nums.length) {
       return list.push([...path])
     }
     for (let i = 0; i < nums.length; i++) {
+      // 跳过树枝上与树层数字重复的情况
       if (path.includes(nums[i])) {
         continue
       }
       path.push(nums[i])
-      backtrack(list, path, nums)
+      backtrack(idx + 1)
       path.pop()
     }
   }
