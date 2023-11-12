@@ -37,6 +37,7 @@ var lengthOfLIS = function(nums) {
   let arr = [0]
 
   for (let i = 1; i < len; i++) {
+    // 注意arr存储的为nums的索引
     if (nums[i] > nums[arr[arr.length - 1]]) {
       arr.push(i)
     } else {
@@ -46,6 +47,7 @@ var lengthOfLIS = function(nums) {
       while (left < right) {
         // left与right一直动态变化
         let mid = Math.floor((left + right) / 2)
+        // 注意arr存储的为nums的索引，判断大小还需要用nums判断
         if (nums[arr[mid]] < nums[i]) {
           left = mid + 1
         } else {
